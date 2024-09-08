@@ -1,0 +1,23 @@
+@media screen and (max-width: 732px) {
+  #tenbanner {
+    font-size: 30px;
+  }
+  .info-itema {
+    height: 560px;
+  }
+  .info-itemb {
+    height: 450px;
+  }
+  .info-itemc {
+    height: 430px;
+  }
+  .info-itemd {
+    height: 280px;
+  }
+  .info-iteme {
+    height: 330px;
+  }
+  .info-itemf {
+    height: 440px;
+  }
+}

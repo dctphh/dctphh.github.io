@@ -1,0 +1,14 @@
+@media screen and (max-width: 1000.98px) {
+  .info-itema,
+  .info-itemb {
+    height: 730px;
+  }
+  .info-itemc,
+  .info-itemd {
+    height: 460px;
+  }
+  .info-iteme,
+  .info-itemf {
+    height: 430px;
+  }
+}
