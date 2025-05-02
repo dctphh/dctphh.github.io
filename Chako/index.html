@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chako - Web Bán Hàng</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <img src="logo.png" alt="Chako Logo" />
+      <h1>Chako</h1>
+    </header>
+    <!-- <img id="banner" src="" alt="Banner Image" /> -->
+    <main>
+      <section
+        class="food-list"
+        id="food-list"
+        aria-label="Danh sách món ăn"
+      ></section>
+      <section id="order-section" aria-label="Đơn hàng của khách">
+        <h2>Đơn hàng của bạn</h2>
+        <ul id="cart-items"></ul>
+        <div id="total-price">Tổng: 0₫</div>
+        <form
+          id="order-form"
+          action="https://formspree.io/f/manoeyjk"
+          method="POST"
+        >
+          <label for="customer-name">Tên của bạn</label>
+          <input type="text" id="customer-name" required autocomplete="name" />
+          <label for="customer-phone">Số điện thoại</label>
+          <input
+            type="tel"
+            id="customer-phone"
+            required
+            pattern="[0-9+()\s-]{7,}"
+            autocomplete="tel"
+          />
+          <label for="customer-address">Địa chỉ</label>
+          <textarea id="customer-address" rows="3" required></textarea>
+          <label for="order-note">Ghi chú (nếu có)</label>
+          <textarea
+            id="order-note"
+            rows="2"
+            placeholder="Ví dụ: Không dùng đá, thêm topping, kem cheese, giao hàng sớm..."
+          ></textarea>
+          <button type="submit">Gửi đơn hàng</button>
+        </form>
+      </section>
+    </main>
+
+    <div
+      class="modal"
+      id="food-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-desc"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Đóng">&times;</button>
+        <img
+          id="modal-food-img"
+          src=""
+          alt=""
+          style="width: 100%; border-radius: 8px"
+        />
+        <h2 id="modal-title"></h2>
+        <p id="modal-desc"></p>
+        <p id="modal-price" style="font-weight: 700; font-size: 1.2rem"></p>
+        <button id="modal-add-cart" class="add-cart-btn">
+          Thêm vào giỏ hàng
+        </button>
+      </div>
+    </div>
+    <footer
+      style="
+        text-align: center;
+        padding: 1em 0;
+        font-size: 0.9rem;
+        background-color: #106f32;
+      "
+    >
+      Web được hỗ trợ bởi
+      <a
+        href="https://www.facebook.com/phamduc109/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Pham Dct</a
+      >
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

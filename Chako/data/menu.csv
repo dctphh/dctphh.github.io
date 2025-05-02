@@ -1,0 +1,7 @@
+﻿id,name,description,price,image
+1,MATCHA LATTE,"Matcha, nước nóng, sữa, pha theo kiểu truyền thống",25000,images/thuong.jpg
+2,COLDWISK,"100% sữa lạnh, béo ngậy, ngọt, không có nốt đắng",25000,images/cw.jpg
+3,JASMINE MATCHA LATTE,"Matcha, sữa, siro nhài. Thanh mát, béo ngậy, thơm hương hoa nhài",29000,images/jas.jpg
+4,SUNRISE YUZU LATTE,"Matcha latte, mứt quýt chanh vàng của Nhật. Thanh mát, ngậy béo, thơm hương chanh quýt, lạ miệng",35000,images/sun.jpg
+5,COCO DREAM,"Nước dừa, kem mây matcha. Ngậy, ngọt nhẹ, giải khát",29000,images/codream.jpg
+6,COCO MATCHA,"Matcha, nước nóng, nước dừa",25000,images/comatcha.jpg
