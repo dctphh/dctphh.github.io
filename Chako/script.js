@@ -20,6 +20,7 @@ const customerPhoneInput = document.getElementById("customer-phone");
 const customerAddressInput = document.getElementById("customer-address");
 const orderNoteInput = document.getElementById("order-note");
 const foodModal = document.getElementById("food-modal");
+const deliveryTimeInput = document.getElementById("delivery-time");
 const modalCloseBtn = foodModal.querySelector(".modal-close");
 const modalFoodImg = document.getElementById("modal-food-img");
 const modalTitle = document.getElementById("modal-title");
@@ -218,6 +219,7 @@ orderForm.addEventListener("submit", (event) => {
   const customerName = customerNameInput.value;
   const customerPhone = customerPhoneInput.value;
   const customerAddress = customerAddressInput.value;
+  const customerTime = deliveryTimeInput.value;
   const orderNote = orderNoteInput.value;
   const orderItems = cart.map((item) => ({
     name: item.food.name,
@@ -233,6 +235,7 @@ orderForm.addEventListener("submit", (event) => {
     customerName,
     customerPhone,
     customerAddress,
+    customerTime,
     orderNote,
     items: orderItems,
     totalPrice,
