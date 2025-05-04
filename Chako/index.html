@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chako - Web Bán Hàng</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- <header>
+      <img src="logo.png" alt="Chako Logo" />
+      <h1>Chako</h1>
+    </header> -->
+    <header>
+      <div class="logo-section">
+        <img src="logo.png" alt="Chako Logo" />
+        <h1>Chako</h1>
+      </div>
+      <nav class="nav-section">
+        <a href="#"><u>Menu</u></a>
+        <a href="uudai.html">Chương trình ưu đãi</a>
+      </nav>
+    </header>
+    <!-- <img id="banner" src="" alt="Banner Image" /> -->
+    <main>
+      <!-- <h2 style="text-align: center">Menu</h2> -->
+      <section
+        class="food-list"
+        id="food-list"
+        aria-label="Danh sách món ăn"
+      ></section>
+      <section id="order-section" aria-label="Đơn hàng của khách">
+        <h2>Đơn hàng của bạn</h2>
+        <ul id="cart-items"></ul>
+        <div id="total-price">Tổng: 0₫</div>
+        <form
+          id="order-form"
+          action="https://formspree.io/f/manoeyjk"
+          method="POST"
+        >
+          <label for="customer-name">Tên của bạn</label>
+          <input type="text" id="customer-name" required autocomplete="name" />
+          <label for="customer-phone">Số điện thoại</label>
+          <input
+            type="tel"
+            id="customer-phone"
+            required
+            pattern="[0-9+()\s-]{7,}"
+            autocomplete="tel"
+          />
+          <label for="customer-address">Địa chỉ</label>
+          <textarea id="customer-address" rows="3" required></textarea>
+          <label for="order-note">Ghi chú (nếu có)</label>
+          <textarea
+            id="order-note"
+            rows="2"
+            placeholder="Ví dụ: Không dùng đá, bỏ riêng đá, thêm kem cheese, đổi ngày giao hàng..."
+          ></textarea>
+          <button type="submit">Gửi đơn hàng</button>
+        </form>
+      </section>
+    </main>
+
+    <div
+      class="modal"
+      id="food-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-desc"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Đóng">&times;</button>
+        <img
+          id="modal-food-img"
+          src=""
+          alt=""
+          style="width: 100%; border-radius: 8px"
+        />
+        <h2 id="modal-title"></h2>
+        <p id="modal-desc"></p>
+        <p id="modal-price" style="font-weight: 700; font-size: 1.2rem"></p>
+        <button id="modal-add-cart" class="add-cart-btn">
+          Thêm vào giỏ hàng
+        </button>
+      </div>
+    </div>
+    <footer
+      style="
+        background-color: #333;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+      "
+    >
+      <div style="max-width: 1200px; margin: auto">
+        <h2>Chako (茶子) - Japan in every sip</h2>
+        <p>
+          Số điện thoại:
+          <a href="tel:0886318181" style="color: #106f32">0886 318 181</a>
+        </p>
+        <p>
+          Email:
+          <a href="mailto:phhnguyenminhduc@gmail.com" style="color: #106f32"
+            >phhnguyenminhduc@gmail.com</a
+          >
+        </p>
+        <p>Giờ mở cửa: 14:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
+        <div style="margin-top: 10px">
+          <a
+            href="https://www.facebook.com/profile.php?id=61575664001499"
+            target="_blank"
+            style="color: #106f32; margin: 0 10px"
+            >Facebook</a
+          >
+          <a
+            href="https://instagram.com/chako.lc"
+            target="_blank"
+            style="color: #106f32; margin: 0 10px"
+            >Instagram</a
+          >
+          <a
+            href="https://instagram.com/chako.lc"
+            target="_blank"
+            style="color: #106f32; margin: 0 10px"
+            >Tiktok</a
+          >
+        </div>
+        <p style="margin-top: 10px; font-size: 12px">
+          &copy; 2025 Chako. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <footer
+      style="
+        text-align: center;
+        padding: 1em 0;
+        font-size: 0.9rem;
+        background-color: #106f32;
+      "
+    >
+      Trang web được hỗ trợ bởi
+      <a
+        href="https://www.facebook.com/phamduc109/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Pham Dct</a
+      >
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
