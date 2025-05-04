@@ -19,8 +19,8 @@ const customerNameInput = document.getElementById("customer-name");
 const customerPhoneInput = document.getElementById("customer-phone");
 const customerAddressInput = document.getElementById("customer-address");
 const orderNoteInput = document.getElementById("order-note");
+const deliveryTimeInput = document.getElementById("deliveryTime"); // Lấy tham chiếu đến trường thời gian giao hàng
 const foodModal = document.getElementById("food-modal");
-const deliveryTimeInput = document.getElementById("delivery-time");
 const modalCloseBtn = foodModal.querySelector(".modal-close");
 const modalFoodImg = document.getElementById("modal-food-img");
 const modalTitle = document.getElementById("modal-title");
@@ -181,13 +181,13 @@ function addToCart(foodId) {
   renderCart();
 }
 
-// Remove item from cart (giữ nguyên)
+// Remove item from cart
 function removeFromCart(foodId) {
   cart = cart.filter((item) => item.food.id !== foodId);
   renderCart();
 }
 
-// Render cart items and total price (giữ nguyên)
+// Update cart display
 function renderCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
@@ -196,21 +196,26 @@ function renderCart() {
     listItem.innerHTML = `
             <span>${item.food.name} x ${item.quantity}</span>
             <span>${formatPrice(item.food.price * item.quantity)}</span>
-            <button class="remove-item" aria-label="Xóa món ${
-              item.food.name
-            } khỏi giỏ hàng" data-id="${item.food.id}">×</button>
+            <button class="remove-btn" data-id="${
+              item.food.id
+            }" aria-label="Xóa món ${
+      item.food.name
+    } khỏi giỏ hàng">&times;</button>
         `;
-    const removeButton = listItem.querySelector(".remove-item");
-    removeButton.addEventListener("click", () => removeFromCart(item.food.id));
-    cartItemsEl.appendChild(listItem);
     total += item.food.price * item.quantity;
+    cartItemsEl.appendChild(listItem);
+
+    const removeButton = listItem.querySelector(".remove-btn");
+    removeButton.addEventListener("click", () => {
+      removeFromCart(item.food.id);
+    });
   });
   totalPriceEl.textContent = `Tổng: ${formatPrice(total)}`;
 }
 
-// Handle form submission (vẫn cần một dịch vụ bên ngoài để xử lý đơn hàng)
-orderForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+// Handle order submission
+orderForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   if (cart.length === 0) {
     alert("Giỏ hàng của bạn đang trống!");
     return;
@@ -219,51 +224,38 @@ orderForm.addEventListener("submit", (event) => {
   const customerName = customerNameInput.value;
   const customerPhone = customerPhoneInput.value;
   const customerAddress = customerAddressInput.value;
-  const customerTime = deliveryTimeInput.value;
   const orderNote = orderNoteInput.value;
-  const orderItems = cart.map((item) => ({
+  const deliveryTime = deliveryTimeInput.value; // Lấy giá trị thời gian giao hàng
+
+  const orderDetails = cart.map((item) => ({
     name: item.food.name,
     quantity: item.quantity,
     price: item.food.price,
   }));
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.food.price * item.quantity,
-    0
-  );
 
-  const orderData = {
+  const order = {
     customerName,
     customerPhone,
     customerAddress,
-    customerTime,
     orderNote,
-    items: orderItems,
-    totalPrice,
+    deliveryTime, // Thêm thời gian giao hàng vào đơn hàng
+    items: orderDetails,
+    total: cart.reduce((sum, item) => sum + item.food.price * item.quantity, 0),
+    timestamp: new Date().toLocaleString(),
   };
 
-  // Gửi dữ liệu đơn hàng đến một dịch vụ xử lý đơn hàng (ví dụ: Formspree, Google Apps Script, v.v.)
-  // Bạn cần cấu hình thuộc tính 'action' của form HTML hoặc sử dụng JavaScript fetch API để gửi dữ liệu.
-  // Ví dụ với Formspree (bạn cần thay YOUR_FORM_ENDPOINT):
-  fetch("https://formspree.io/f/manoeyjk", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(orderData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      alert("Đơn hàng của bạn đã được gửi thành công!");
-      cart = [];
-      renderCart();
-      orderForm.reset();
-    })
-    .catch((error) => {
-      console.error("Lỗi khi gửi đơn hàng:", error);
-      alert("Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại sau.");
-    });
+  console.log("Thông tin đơn hàng:", order);
+
+  // Gửi dữ liệu đơn hàng (ví dụ: đến server hoặc lưu vào localStorage)
+  // Ở đây, bạn đang sử dụng Formspree, nên dữ liệu sẽ được gửi đi khi submit form
+
+  // Sau khi gửi đơn hàng thành công, bạn có thể muốn làm sạch giỏ hàng và thông báo cho người dùng
+  cart = [];
+  renderCart();
+  alert("Đơn hàng của bạn đã được gửi đi!");
+  orderForm.reset();
 });
 
-// Gọi loadData khi trang web tải
+// Initial load
 loadData();
-renderCart(); // Hiển thị giỏ hàng (nếu có dữ liệu từ phiên trước - bạn có thể bỏ qua nếu không muốn lưu giỏ hàng)
+renderCart();
