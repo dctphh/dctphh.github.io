@@ -1,3 +1,5 @@
+// script.js
+
 // Util: format price as VND
 function formatPrice(price) {
   return price.toLocaleString("vi-VN") + "₫";
@@ -8,7 +10,7 @@ function formatPrice(price) {
 const INFO_KEY = "chako_info";
 const ORDERS_KEY = "chako_orders";
 
-// Get references (giữ nguyên)
+// Get references
 const logoImg = document.getElementById("logo");
 const bannerImg = document.getElementById("banner");
 const foodListEl = document.getElementById("food-list");
@@ -19,7 +21,9 @@ const customerNameInput = document.getElementById("customer-name");
 const customerPhoneInput = document.getElementById("customer-phone");
 const customerAddressInput = document.getElementById("customer-address");
 const orderNoteInput = document.getElementById("order-note");
-const foodModal = document.getElementById("food-modal");
+const customerInviteInput = document.getElementById("customer-invite");
+const orderTimeInput = document.getElementById("order-time");
+const foodModal = document.getElementById("food-modal"); // Vẫn giữ lại khai báo nếu bạn có ý định dùng lại sau này
 const modalCloseBtn = foodModal.querySelector(".modal-close");
 const modalFoodImg = document.getElementById("modal-food-img");
 const modalTitle = document.getElementById("modal-title");
@@ -27,60 +31,75 @@ const modalDesc = document.getElementById("modal-desc");
 const modalPrice = document.getElementById("modal-price");
 const modalAddCartBtn = document.getElementById("modal-add-cart");
 
-// Cart state (giữ nguyên)
+// Cart state (lưu trữ object chứa food variant và quantity)
 let cart = [];
-// Menu data (thay đổi cách lấy dữ liệu)
+// Menu data (thay đổi cấu trúc để hỗ trợ nhiều size và tùy chọn)
 let menu = [
   {
-    id: "3",
-    name: "JASMINE MATCHA LATTE",
-    description:
-      "Matcha, sữa, siro nhài. Thanh mát, béo ngậy, thơm hương hoa nhài",
-    price: 33000,
-    image: "images/jas.jpg",
-  },
-  {
-    id: "4",
-    name: "SUNRISE YUZU LATTE",
-    description:
-      "Matcha latte, mứt quýt chanh vàng của Nhật. Thanh mát, ngậy béo, thơm hương chanh quýt, lạ miệng",
-    price: 39000,
-    image: "images/sun.jpg",
-  },
-  {
-    id: "5",
-    name: "COCO DREAM",
-    description: "Nước dừa, kem mây matcha. Ngậy, ngọt nhẹ, giải khát",
-    price: 33000,
-    image: "images/codream.jpg",
-  },
-  {
     id: "1",
-    name: "MATCHA LATTE",
-    description: "Matcha, nước nóng, sữa, pha theo kiểu truyền thống",
-    price: 29000,
-    image: "images/thuong.jpg",
+    name: "Sương Sớm (Matcha hoa nhài)",
+    description: "Matcha nhài. Thanh mát, béo ngậy, thơm hương hoa nhài",
+    variants: [
+      { size: "400ml", price: 29000, online: true },
+      { size: "550ml", price: 33000, online: true },
+    ],
+    image: "images/suong.jpg",
   },
   {
     id: "2",
-    name: "COLDWISK",
-    description: "100% sữa lạnh, béo ngậy, ngọt, không có nốt đắng",
-    price: 29000,
-    image: "images/cw.jpg",
+    name: "Quýt Ban Mai (Matcha, nước dừa, & mứt quýt chanh vàng của Nhật)",
+    description: "Thanh mát, ngọt vị dừa, thơm hương chanh quýt, lạ miệng",
+    variants: [
+      { size: "400ml", price: 33000, online: true },
+      { size: "550ml", price: 39000, online: true },
+    ],
+    image: "images/quyt.jpg",
   },
-  // {
-  //   id: "6",
-  //   name: "COCO CLOUD",
-  //   description: "Matcha coldwhisked, nước dừa",
-  //   price: 33000,
-  //   image: "images/cocloud.jpg",
-  // },
-  // Thêm các món ăn khác vào đây theo cấu trúc tương tự
+  {
+    id: "3",
+    name: "Thanh mát (Nước dừa, kem mây matcha)",
+    description: "Nước dừa, kem mây matcha. Ngậy, ngọt nhẹ, giải khát",
+    variants: [
+      { size: "400ml", price: 33000, online: true },
+      { size: "550ml", price: 39000, online: true },
+    ],
+    image: "images/thanh.jpg",
+  },
+  {
+    id: "4",
+    name: "Thư Thái (Matcha Latte truyền thống)",
+    description: "Matcha latte kiểu truyền thống. Có thể coldwhisk",
+    variants: [
+      { size: "400ml", price: 29000, online: true },
+      { size: "550ml", price: 33000, online: true },
+    ],
+    image: "images/thuong.jpg",
+  },
+  {
+    id: "5",
+    name: "Bồng Bềnh (Matcha kem muối)",
+    description: "Matcha kem muối. Béo ngậy, ngọt nhẹ, đậm đà",
+    variants: [
+      { size: "400ml", price: 33000, online: true },
+      { size: "550ml", price: 39000, online: true },
+    ],
+    image: "images/bong.jpg",
+  },
+  {
+    id: "6",
+    name: "KYOTO (Matcha & kem mịn)",
+    description: "Matcha & kem mịn. Đậm vị trà, ngậy béo",
+    variants: [
+      { size: "440ml", price: 39000, online: true },
+      { size: "550ml", price: 45000, online: true, pickupOnly: true },
+      // Ví dụ món chỉ pick up
+    ],
+    image: "images/kyoto.png",
+  },
+  // Thêm các món ăn khác với các biến thể (size, giá, online)
 ];
-// Currently displayed food in modal (giữ nguyên)
-let currentFoodId = null;
 
-// Load thông tin chung (logo, banner) từ localStorage (giữ nguyên)
+// Load thông tin chung (logo, banner) từ localStorage
 function loadData() {
   const savedInfo = localStorage.getItem(INFO_KEY);
   if (savedInfo) {
@@ -91,176 +110,208 @@ function loadData() {
   renderMenu(); // Gọi renderMenu sau khi (cố gắng) tải dữ liệu
 }
 
-// Display menu items on the page (giữ nguyên logic hiển thị)
+// Display menu items on the page
+// function renderMenu() {
+//   foodListEl.innerHTML = "";
+//   menu.forEach((food) => {
+//     const onlineVariants = food.variants.filter((v) => v.online);
+
+//     if (onlineVariants.length > 0) {
+//       const item = document.createElement("div");
+//       item.className = "food-item";
+
+//       let variantButtonsHTML = onlineVariants
+//         .map(
+//           (variant) => `
+//         <button class="add-cart-btn small" data-food-id="${
+//           food.id
+//         }" data-variant='${JSON.stringify(variant)}'>
+//           ${variant.size} - ${formatPrice(variant.price)}
+//         </button>
+//       `
+//         )
+//         .join("");
+
+//       item.innerHTML = `
+//         <img src="${food.image}" alt="Ảnh món ${food.name}" />
+//         <div class="food-details">
+//           <div class="food-name">${food.name}</div>
+//           <div class="food-desc">${
+//             food.description.length > 60
+//               ? food.description.slice(0, 60) + "..."
+//               : food.description
+//           }</div>
+//           <div class="variant-buttons">${variantButtonsHTML}</div>
+//         </div>
+//       `;
+
+//       foodListEl.appendChild(item);
+//     }
+//   });
+
+//   // Thêm event listener cho các nút thêm vào giỏ hàng của từng variant
+//   const addToCartButtons = foodListEl.querySelectorAll(".add-cart-btn");
+//   addToCartButtons.forEach((button) => {
+//     button.addEventListener("click", function () {
+//       const foodId = this.dataset.foodId;
+//       const variant = JSON.parse(this.dataset.variant);
+//       addToCart(foodId, variant);
+//     });
+//   });
+// }
+
+// // Add variant to cart
+// function addToCart(foodId, variant) {
+//   const itemInCart = cart.find(
+//     (item) => item.foodId === foodId && item.variant.size === variant.size
+//   );
+//   if (itemInCart) {
+//     itemInCart.quantity++;
+//   } else {
+//     cart.push({ foodId: foodId, variant: variant, quantity: 1 });
+//   }
+//   renderCart();
+// }
+
 function renderMenu() {
   foodListEl.innerHTML = "";
   menu.forEach((food) => {
     const item = document.createElement("div");
     item.className = "food-item";
-    item.setAttribute("tabindex", "0");
-    item.setAttribute("role", "button");
-    item.setAttribute("aria-label", `Xem thông tin món ${food.name}`);
+    if (food.variants.some((v) => v.pickupOnly)) {
+      item.classList.add("pickup-only-item");
+      item.setAttribute("aria-label", `${food.name} (Chỉ nhận tại cửa hàng)`);
+    } else {
+      item.setAttribute("aria-label", `Xem thông tin món ${food.name}`);
+    }
 
     item.innerHTML = `
-            <img src="${food.image}" alt="Ảnh món ${food.name}" />
-            <div class="food-details">
-                <div class="food-name">${food.name}</div>
-                <div class="food-desc">${
-                  food.description.length > 60
-                    ? food.description.slice(0, 60) + "..."
-                    : food.description
-                }</div>
-                <div class="food-price">${formatPrice(food.price)}</div>
-                <button class="add-cart-btn" aria-label="Thêm món ${
-                  food.name
-                } vào giỏ hàng">Thêm vào giỏ hàng</button>
-            </div>
-        `;
-
-    const addBtn = item.querySelector(".add-cart-btn");
-    addBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      addToCart(food.id);
-    });
-
-    item.addEventListener("click", () => showFoodModal(food.id));
-    item.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        showFoodModal(food.id);
-      }
-    });
+      <img src="${food.image}" alt="Ảnh món ${food.name}" />
+      <div class="food-details">
+        <div class="food-name">${food.name} ${
+      food.variants.some((v) => v.pickupOnly)
+        ? '<span class="pickup-label">(CHỈ BÁN TRỰC TIẾP)</span>'
+        : ""
+    }</div>
+        <div class="food-desc">${
+          food.description.length > 60
+            ? food.description.slice(0, 60) + "..."
+            : food.description
+        }</div>
+        <div class="variant-buttons">
+          ${food.variants
+            .filter((v) => v.online)
+            .map(
+              (variant) => `
+            <button class="add-cart-btn small" data-food-id="${
+              food.id
+            }" data-variant='${JSON.stringify(variant)}' ${
+                food.variants.some((v) => v.pickupOnly) ? "disabled" : ""
+              }>
+              ${variant.size} - ${formatPrice(variant.price)}
+            </button>
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    `;
 
     foodListEl.appendChild(item);
   });
+
+  // Thêm event listener cho các nút thêm vào giỏ hàng
+  const addToCartButtons = foodListEl.querySelectorAll(
+    ".add-cart-btn:not([disabled])"
+  );
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const foodId = this.dataset.foodId;
+      const variant = JSON.parse(this.dataset.variant);
+      addToCart(foodId, variant);
+    });
+  });
+
+  // (Không cần event listener cho các nút disabled)
 }
 
-// Show modal with full food details (giữ nguyên)
-function showFoodModal(foodId) {
-  const food = menu.find((f) => f.id === foodId);
-  if (!food) return;
-  currentFoodId = foodId;
-  modalFoodImg.src = food.image;
-  modalFoodImg.alt = `Ảnh món ${food.name}`;
-  modalTitle.textContent = food.name;
-  modalDesc.textContent = food.description;
-  modalPrice.textContent = formatPrice(food.price);
-  foodModal.style.display = "flex";
-  foodModal.setAttribute("aria-hidden", "false");
-  modalAddCartBtn.focus();
-}
-
-// Close modal (giữ nguyên)
-function closeModal() {
-  foodModal.style.display = "none";
-  foodModal.setAttribute("aria-hidden", "true");
-  currentFoodId = null;
-}
-
-modalCloseBtn.addEventListener("click", closeModal);
-foodModal.addEventListener("click", (e) => {
-  if (e.target === foodModal) closeModal();
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && foodModal.style.display === "flex") {
-    closeModal();
+// Add variant to cart
+function addToCart(foodId, variant) {
+  const foodData = menu.find((f) => f.id === foodId);
+  if (foodData?.variants.some((v) => v.pickupOnly)) {
+    alert("Món này chỉ có thể nhận trực tiếp tại cửa hàng.");
+    return;
   }
-});
 
-// Add food to cart (giữ nguyên)
-function addToCart(foodId) {
-  const food = menu.find((f) => f.id === foodId);
-  if (!food) return;
-  const itemInCart = cart.find((item) => item.food.id === foodId);
+  const itemInCart = cart.find(
+    (item) => item.foodId === foodId && item.variant.size === variant.size
+  );
   if (itemInCart) {
     itemInCart.quantity++;
   } else {
-    cart.push({ food, quantity: 1 });
+    cart.push({ foodId: foodId, variant: variant, quantity: 1 });
   }
   renderCart();
 }
 
-// Remove item from cart (giữ nguyên)
-function removeFromCart(foodId) {
-  cart = cart.filter((item) => item.food.id !== foodId);
+// Remove item from cart (cần so sánh cả foodId và variant)
+function removeFromCart(foodId, variantSize) {
+  cart = cart.filter(
+    (item) => !(item.foodId === foodId && item.variant.size === variantSize)
+  );
   renderCart();
 }
 
-// Render cart items and total price (giữ nguyên)
+// Render cart items and total price
 function renderCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
   cart.forEach((item) => {
-    const listItem = document.createElement("li");
+    const food = menu.find((f) => f.id === item.foodId);
+    const foodName = food ? food.name : "Không tìm thấy";
+    listItem = document.createElement("li");
     listItem.innerHTML = `
-            <span>${item.food.name} x ${item.quantity}</span>
-            <span>${formatPrice(item.food.price * item.quantity)}</span>
-            <button class="remove-item" aria-label="Xóa món ${
-              item.food.name
-            } khỏi giỏ hàng" data-id="${item.food.id}">×</button>
-        `;
+      <span>${foodName} (${item.variant.size}) x ${item.quantity}</span>
+      <span>${formatPrice(item.variant.price * item.quantity)}</span>
+      <button class="remove-item" aria-label="Xóa món ${foodName} (${
+      item.variant.size
+    }) khỏi giỏ hàng" data-food-id="${item.foodId}" data-variant-size="${
+      item.variant.size
+    }">×</button>
+    `;
     const removeButton = listItem.querySelector(".remove-item");
-    removeButton.addEventListener("click", () => removeFromCart(item.food.id));
+    removeButton.addEventListener("click", function () {
+      removeFromCart(this.dataset.foodId, this.dataset.variantSize);
+    });
     cartItemsEl.appendChild(listItem);
-    total += item.food.price * item.quantity;
+    total += item.variant.price * item.quantity;
   });
   totalPriceEl.textContent = `Tổng: ${formatPrice(total)}`;
+  updateOrderDetailsInput(); // Cập nhật thông tin đơn hàng khi giỏ hàng thay đổi
 }
 
-// Handle form submission (vẫn cần một dịch vụ bên ngoài để xử lý đơn hàng)
+// Update the hidden input field for order details
+function updateOrderDetailsInput() {
+  const orderDetails = cart
+    .map((item) => {
+      const foodName =
+        menu.find((f) => f.id === item.foodId)?.name || "Không tìm thấy";
+      return `${foodName} (${item.variant.size}) x ${item.quantity}`;
+    })
+    .join(", ");
+  document.getElementById("order-details").value = orderDetails;
+}
+
+// Handle form submission
 orderForm.addEventListener("submit", (event) => {
-  event.preventDefault();
   if (cart.length === 0) {
     alert("Giỏ hàng của bạn đang trống!");
+    event.preventDefault();
     return;
   }
-
-  const customerName = customerNameInput.value;
-  const customerPhone = customerPhoneInput.value;
-  const customerAddress = customerAddressInput.value;
-  const orderNote = orderNoteInput.value;
-  const orderItems = cart.map((item) => ({
-    name: item.food.name,
-    quantity: item.quantity,
-    price: item.food.price,
-  }));
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.food.price * item.quantity,
-    0
-  );
-
-  const orderData = {
-    customerName,
-    customerPhone,
-    customerAddress,
-    orderNote,
-    items: orderItems,
-    totalPrice,
-  };
-
-  // Gửi dữ liệu đơn hàng đến một dịch vụ xử lý đơn hàng (ví dụ: Formspree, Google Apps Script, v.v.)
-  // Bạn cần cấu hình thuộc tính 'action' của form HTML hoặc sử dụng JavaScript fetch API để gửi dữ liệu.
-  // Ví dụ với Formspree (bạn cần thay YOUR_FORM_ENDPOINT):
-  fetch("https://formspree.io/f/manoeyjk", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(orderData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      alert("Đơn hàng của bạn đã được gửi thành công!");
-      cart = [];
-      renderCart();
-      orderForm.reset();
-    })
-    .catch((error) => {
-      console.error("Lỗi khi gửi đơn hàng:", error);
-      alert("Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại sau.");
-    });
+  updateOrderDetailsInput(); // Đảm bảo order details được cập nhật trước khi submit
 });
 
-// Gọi loadData khi trang web tải
+// Gọi loadData và renderCart khi trang web tải
 loadData();
-renderCart(); // Hiển thị giỏ hàng (nếu có dữ liệu từ phiên trước - bạn có thể bỏ qua nếu không muốn lưu giỏ hàng)
+renderCart();
