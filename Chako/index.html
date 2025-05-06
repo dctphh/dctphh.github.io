@@ -39,24 +39,56 @@
         <div id="total-price">Tổng: 0₫</div>
         <form
           id="order-form"
-          action="https://formspree.io/f/manoeyjk"
+          action="https://formsubmit.co/chako.chakies@gmail.com"
           method="POST"
         >
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_subject" value="Đơn hàng mới từ Chako!" />
+          <input type="hidden" name="Chi tiết đơn hàng" id="order-details" />
           <label for="customer-name">Tên của bạn</label>
-          <input type="text" id="customer-name" required autocomplete="name" />
+          <input
+            type="text"
+            id="customer-name"
+            name="customer-name"
+            required
+            autocomplete="name"
+          />
           <label for="customer-phone">Số điện thoại</label>
           <input
             type="tel"
             id="customer-phone"
+            name="customer-phone"
             required
             pattern="[0-9+()\s-]{7,}"
             autocomplete="tel"
           />
           <label for="customer-address">Địa chỉ</label>
-          <textarea id="customer-address" rows="3" required></textarea>
+          <textarea
+            id="customer-address"
+            name="customer-address"
+            rows="3"
+            required
+          ></textarea>
+          <label for="order-time">Thời gian mong muốn nhận đơn (nếu có)</label>
+          <textarea
+            id="order-time"
+            name="order-time"
+            rows="1"
+            placeholder="Ví dụ: Sáng ngày 18/1/2025"
+          ></textarea>
+          <!-- <label for="customer-invite"
+            >IG người giới thiệu (tag tối đa 1 người, nếu có)</label
+          >
+          <textarea
+            id="customer-invite"
+            name="customer-invite"
+            rows="3"
+            placeholder="Ví dụ: @ctduckky, @_hnhung156, @victoria__tran, @nguyenle_ln..."
+          ></textarea> -->
           <label for="order-note">Ghi chú (nếu có)</label>
           <textarea
             id="order-note"
+            name="order-note"
             rows="2"
             placeholder="Ví dụ: Không dùng đá, bỏ riêng đá, thêm kem cheese, đổi ngày giao hàng..."
           ></textarea>
