@@ -224,7 +224,7 @@ footer a:hover {
 
 @media (max-width: 480px) {
   .food-list {
-    grid-template-columns: repeat(2, 1fr); /* 1 column on very small screens */
+    grid-template-columns: repeat(1, 1fr); /* 1 column on very small screens */
   }
   header h1 {
     font-size: 1.5rem;
@@ -311,4 +311,71 @@ header {
   width: 30px; /* Chiều rộng cho nút xóa */
   text-align: center;
   margin-left: 10px; /* Tạo khoảng cách giữa giá và nút xóa */
+}
+
+.variant-option {
+  background-color: #f4f1e6;
+  color: #106f32;
+  border: 1px solid #106f32;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.variant-option:hover {
+  background-color: #e0ddd3;
+}
+
+.modal-price {
+  margin-bottom: 15px;
+}
+
+/* style.css */
+
+/* ... (các style hiện tại giữ nguyên) */
+
+.variant-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap; /* Để các nút xuống dòng khi không đủ chỗ */
+}
+
+.add-cart-btn.small {
+  padding: 6px 10px;
+  font-size: 0.9rem;
+}
+
+/* style.css */
+
+/* ... (các style hiện tại giữ nguyên) */
+
+.pickup-only-item {
+  /* opacity: 0.6; Tô xám */
+  cursor: not-allowed; /* Thay đổi con trỏ chuột */
+}
+
+.pickup-label {
+  /* background-color: #6c757d; */
+  color: #6c757d;
+  /* padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-left: 5px; */
+}
+
+.pickup-only-item .add-cart-btn {
+  background-color: #ccc; /* Tô xám nút thêm */
+  border-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.pickup-only-item .add-cart-btn:hover {
+  background-color: #ccc; /* Vẫn giữ nguyên màu khi hover */
 }
