@@ -60,7 +60,7 @@ let menu = [
     name: "Thanh mát (Nước dừa, kem mây matcha)",
     description: "Nước dừa, kem mây matcha. Ngậy, ngọt nhẹ, giải khát",
     variants: [
-      { size: "400ml", price: 33000, online: true },
+      { size: "400ml", price: 34000, online: true },
       { size: "550ml", price: 39000, online: true },
     ],
     image: "images/thanh.jpg",
@@ -80,7 +80,7 @@ let menu = [
     name: "Bồng Bềnh (Matcha kem muối)",
     description: "Matcha kem muối. Béo ngậy, ngọt nhẹ, đậm đà",
     variants: [
-      { size: "400ml", price: 33000, online: true },
+      { size: "400ml", price: 34000, online: true },
       { size: "550ml", price: 39000, online: true },
     ],
     image: "images/bong.jpg",
@@ -90,8 +90,8 @@ let menu = [
     name: "KYOTO (Matcha & kem mịn)",
     description: "Matcha & kem mịn. Đậm vị trà, ngậy béo",
     variants: [
-      { size: "440ml", price: 39000, online: true },
-      { size: "550ml", price: 45000, online: true, pickupOnly: true },
+      { size: "440ml", price: 36000, online: true },
+      { size: "550ml", price: 41000, online: true, pickupOnly: true },
       // Ví dụ món chỉ pick up
     ],
     image: "images/kyoto.png",
