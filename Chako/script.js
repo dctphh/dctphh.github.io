@@ -94,7 +94,7 @@ let menu = [
       { size: "550ml", price: 45000, online: true, pickupOnly: true },
       // Ví dụ món chỉ pick up
     ],
-    image: "images/kyoto.png",
+    image: "images/kyoto.jpg",
   },
   // Thêm các món ăn khác với các biến thể (size, giá, online)
 ];
