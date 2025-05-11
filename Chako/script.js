@@ -40,8 +40,8 @@ let menu = [
     name: "Sương Sớm (Matcha hoa nhài)",
     description: "Matcha nhài. Thanh mát, béo ngậy, thơm hương hoa nhài",
     variants: [
-      { size: "400ml", price: 29000, online: true },
-      { size: "550ml", price: 33000, online: true },
+      { size: "400ml", price: 31000, online: true },
+      { size: "550ml", price: 36000, online: true },
     ],
     image: "images/suong.jpg",
   },
@@ -50,7 +50,7 @@ let menu = [
     name: "Quýt Ban Mai (Matcha, nước dừa, & mứt quýt chanh vàng của Nhật)",
     description: "Thanh mát, ngọt vị dừa, thơm hương chanh quýt, lạ miệng",
     variants: [
-      { size: "400ml", price: 33000, online: true },
+      { size: "400ml", price: 36000, online: true },
       { size: "550ml", price: 39000, online: true },
     ],
     image: "images/quyt.jpg",
@@ -60,8 +60,8 @@ let menu = [
     name: "Thanh mát (Nước dừa, kem mây matcha)",
     description: "Nước dừa, kem mây matcha. Ngậy, ngọt nhẹ, giải khát",
     variants: [
-      { size: "400ml", price: 34000, online: true },
-      { size: "550ml", price: 39000, online: true },
+      { size: "400ml", price: 36000, online: true },
+      { size: "550ml", price: 41000, online: true },
     ],
     image: "images/thanh.jpg",
   },
@@ -70,8 +70,8 @@ let menu = [
     name: "Thư Thái (Matcha Latte truyền thống)",
     description: "Matcha latte kiểu truyền thống. Có thể coldwhisk",
     variants: [
-      { size: "400ml", price: 29000, online: true },
-      { size: "550ml", price: 33000, online: true },
+      { size: "400ml", price: 31000, online: true },
+      { size: "550ml", price: 36000, online: true },
     ],
     image: "images/thuong.jpg",
   },
@@ -80,8 +80,8 @@ let menu = [
     name: "Bồng Bềnh (Matcha kem muối)",
     description: "Matcha kem muối. Béo ngậy, ngọt nhẹ, đậm đà",
     variants: [
-      { size: "400ml", price: 34000, online: true },
-      { size: "550ml", price: 39000, online: true },
+      { size: "400ml", price: 36000, online: true },
+      { size: "550ml", price: 41000, online: true },
     ],
     image: "images/bong.jpg",
   },
@@ -90,8 +90,8 @@ let menu = [
     name: "KYOTO (Matcha & kem mịn)",
     description: "Matcha & kem mịn. Đậm vị trà, ngậy béo",
     variants: [
-      { size: "440ml", price: 36000, online: true },
-      { size: "550ml", price: 41000, online: true, pickupOnly: true },
+      { size: "440ml", price: 39000, online: true },
+      { size: "550ml", price: 45000, online: true, pickupOnly: true },
       // Ví dụ món chỉ pick up
     ],
     image: "images/kyoto.png",
@@ -286,8 +286,9 @@ function renderCart() {
     cartItemsEl.appendChild(listItem);
     total += item.variant.price * item.quantity;
   });
-  totalPriceEl.textContent = `Tổng: ${formatPrice(total)}`;
+  totalPriceEl.textContent = `Tổng: ${formatPrice(total)} + Ship`;
   updateOrderDetailsInput(); // Cập nhật thông tin đơn hàng khi giỏ hàng thay đổi
+  document.getElementById("order-paid").value = formatPrice(total);
 }
 
 // Update the hidden input field for order details
