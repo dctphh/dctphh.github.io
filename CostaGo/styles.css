@@ -1,0 +1,266 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0; /* Reset default body margin */
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tour-section {
+  background-color: #f7f7f7;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.tour-section h2 {
+  color: #10b981;
+  font-size: 2.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.tour-section p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.tour-section ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.tour-section li {
+  margin-bottom: 0.5rem;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.image-grid img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-grid img:hover {
+  transform: scale(1.05);
+}
+
+.highlight-box {
+  background-color: #f0fdf4;
+  border: 1px solid #6ee7b7;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.highlight-box h3 {
+  color: #15803d;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.special-offer {
+  background-color: #fef08a;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #fde047;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.special-offer h3 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.map-container {
+  width: 100%;
+  height: 300px;
+  background-color: #e5e7eb;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4b5563;
+  font-size: 1.2rem;
+  font-style: italic;
+  border: 2px solid #d1d5db;
+}
+
+.contact-info {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.contact-info h3 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.closing-quote {
+  font-style: italic;
+  color: #6b7280;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* Chat Widget Styles */
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chat-button {
+  background-color: #2563eb; /* Blue-500 from Tailwind */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.chat-box {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.close-chat {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.chat-messages {
+  padding: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.bot-message {
+  background-color: #e0f7fa;
+  color: #00897b;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+.user-message {
+  background-color: #dcf8c6;
+  color: #1c392a;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  align-self: flex-end;
+  max-width: 80%;
+}
+
+.chat-input {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  display: flex;
+}
+
+.chat-input input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.chat-input button {
+  background-color: #2563eb; /* Blue-500 from Tailwind */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  .tour-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tour-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .image-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .image-grid img {
+    height: 150px;
+  }
+  .chat-widget {
+    bottom: 10px;
+    right: 10px;
+  }
+  .chat-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
