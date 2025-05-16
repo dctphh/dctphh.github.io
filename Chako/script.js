@@ -47,8 +47,9 @@ let menu = [
   },
   {
     id: "2",
-    name: "Quýt Ban Mai (Matcha, nước dừa, & mứt quýt chanh vàng của Nhật)",
-    description: "Thanh mát, ngọt vị dừa, thơm hương chanh quýt, lạ miệng",
+    name: "Quýt Ban Mai (Matcha, nước dừa & mứt yuzu Nhật)",
+    description:
+      "Matcha, nước dừa, & mứt yuzu của Nhật. Thanh mát, giải khát, thơm hương chanh quýt, lạ miệng",
     variants: [
       { size: "400ml", price: 36000, online: true },
       { size: "550ml", price: 39000, online: true },
@@ -87,11 +88,11 @@ let menu = [
   },
   {
     id: "6",
-    name: "KYOTO (Matcha & kem mịn)",
+    name: "Kyoto (Matcha & kem mịn)",
     description: "Matcha & kem mịn. Đậm vị trà, ngậy béo",
     variants: [
       { size: "440ml", price: 39000, online: true },
-      { size: "550ml", price: 45000, online: true, pickupOnly: true },
+      { size: "550ml", price: 45000, online: true },
       // Ví dụ món chỉ pick up
     ],
     image: "images/kyoto.jpg",
